@@ -1,0 +1,43 @@
+<html>
+<head>
+	<title></title>
+	<script src="angular.js"></script>
+	var module = angular.module("AdressBook",[]);
+	
+	<script src="contactsController.js"></script>
+	<script src="addContactController.js"></script>
+</head>
+
+<body ng-app="AdressBook">
+
+	<div ng-controller="contactsController" ng-style="contacts">
+		<table border="1" width="30%" align="center">
+			<tr>
+				<th> Contacts <span style="float:right;"><button ng-click="add()">+</button></span></th>
+			</tr>
+			<tr ng-repeat="key in contactsArray">
+					<td> {{key}} </td> 
+					<td> {{key}} </td> 
+					<td> <button ng-model="edit" ng-value="key.id" ng-click="edit()" value="edit"> </button> </td>
+			</tr>
+		</table>
+	</div>
+
+	<div ng-controller="addContactController" ng-style="addContact">
+		<table border=1 align="center" width="30%">
+			<tr> <th> Add Contact</th></tr>
+			<tr><td>
+				<input type="text" ng-model="fname" placeholder="First Name"> <br> <br>
+				<input type="text" ng-model="lname" placeholder="Last Name"> <br> <br>
+				<input type="text" ng-model="mob" placeholder="Mobile Number"> <br> <br>
+				<input type="button" ng-click="doneAdd()" value="Done">
+				<input type="button" ng-click="cancelAdd()" value="Cancel">
+
+			</td></tr>
+		</table>
+	</div>
+
+
+
+</body>
+</html>
