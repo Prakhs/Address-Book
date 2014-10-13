@@ -1,0 +1,58 @@
+html,body{
+	font-family: sans-serif;
+}
+.headerClass{
+	background-color: #446CB3;
+	color:#fff;
+	font-family: sans-serif;
+	display: flex;
+	align-items:stretch;
+	align-content:space-around;
+	border-radius: 20px;
+}
+.btnAdd{
+	background-color: #F9BF3B;
+	font-size: 2em;
+	flex-grow:0.5;
+	width:0.1em;
+	border-radius: 400px;
+	padding: 0.5%;
+	margin: 0.5%;
+
+}
+.btnAdd:hover{
+	cursor:pointer;
+	background-color: #F27935;
+	box-shadow: 3px 3px 4px #22313F;
+}
+.headName{
+	flex-grow:20;
+	margin:1%;
+	font-size: 1.5em;
+}
+.nameNode{
+	margin:1%;
+	padding:1%;
+	font-family: sa
+}
+.nameNode span{
+	margin:1%;
+	padding:1%;
+	font-size: 1.5em;
+}
+.nameNode span button{
+	width:10em;
+	height: 2em;
+}
+
+.editClass{
+	margin:1%;
+}
+.editClass input{
+	margin:1%;
+	padding:1%;
+}
+.edtBtn button{
+	margin:1%;
+	padding:1%;
+}
