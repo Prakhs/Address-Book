@@ -1,0 +1,149 @@
+<html ng-app="AddressBook">
+	<head>
+		<script src="angular.js"></script>
+		
+		<style>
+			body{background-color: #54B7B7;
+			}
+			div{background-color: #000fff;
+				margin-right: auto;
+				margin-left: auto;
+				width: 50%;
+				border-style: solid
+			}
+		</style>
+		<script>
+			var mob;
+			angular.module("AddressBook",[]).controller("sample",function($scope){
+				$scope.Edit={"display":"none"};
+				$scope.Add={"display":"none"};
+				$scope.list=[];
+
+				var db= openDatabase("AddressBOOK",1.0,"UselessDB",757657455); //asynchronous API
+				db.transaction(createAddressTable);	
+				$scope.addElems =function(){console.log("add button pressed")
+					$scope.Add={"display":"block"};
+					$scope.header={"display":"none"};
+				}
+				$scope.editElems =function(key){console.log("edit button pressed")
+					$scope.Edit={"display":"block"};
+					$scope.header={"display":"none"};
+					console.log(key.Fname);
+					$scope.fname1=key.Fname;
+					$scope.lname1=key.Lname;
+					$scope.Mno1=key.mobile;
+					mob=key.mobile;
+				}
+				$scope.cancelElem =function(){console.log("cancel button pressed")
+					$scope.header={"display":"block"};
+					$scope.Edit={"display":"none"};
+					$scope.Add={"display":"none"};
+				}
+				$scope.doneButon = function(){
+					$scope.header={"display":"block"};
+					$scope.Edit={"display":"none"};
+					$scope.Add={"display":"none"};
+					db.transaction(addRecord);
+				}
+				$scope.doneButon1 = function(){
+					$scope.header={"display":"block"};
+					$scope.Edit={"display":"none"};
+					$scope.Add={"display":"none"};
+					db.transaction(editRecord);
+				}
+				db.transaction(displayAddress);	
+
+				function displayAddress(txn){
+				var sql = "select * from addressbook";
+				txn.executeSql(sql,[],function(tx,result){
+									var count=result.rows.length;
+									$scope.list.length=0;
+									for(var i=0;i<count;i++){
+										$scope.list.push(result.rows.item(i));
+										$scope.$apply();																
+					}
+
+				});
+			} 
+				function addRecord(txn){
+					var sql = "insert into addressbook values(?,?,?)";
+					var fname = $scope.fname;
+					var lname = $scope.lname;
+					var mobile = $scope.Mno;
+					console.log(fname + " " + lname);
+					txn.executeSql(sql,[$scope.fname,$scope.lname,$scope.Mno],function(tx){
+							console.log("successfully added");
+		 				},
+						function(tx,err){
+							console.log("error Adding contact");
+							console.log(err);
+						});
+					db.transaction(displayAddress);	
+					}
+
+					function editRecord(txn){
+					var sql = "UPDATE addressbook SET Fname=?,Lname=?,mobile=? WHERE mobile=?";
+					console.log($scope.fname1+","+$scope.lname1+","+$scope.Mno1+","+mob)
+					txn.executeSql(sql,[$scope.fname1,$scope.lname1,$scope.Mno1,mob],function(tx){
+							console.log("successfully Changed");
+		 				},
+						function(tx,err){
+							console.log("error Changing contact");
+							console.log(err);
+						});
+					}
+				function createAddressTable(txn){
+				//var sql="drop table addressbook";
+				var sql ="create table if not exists addressbook(Fname,Lname,mobile unique)";
+				txn.executeSql(sql,[],function(tx){
+					//console.log("Dropped Movies successfully");
+					console.log("Created AddressBook successfully");
+				},function(tx,err){
+					console.log(err);
+				});
+			}
+		});
+		</script>
+	</head>
+	<body ng-controller="sample">
+		<div ng-style="header">
+			<center><h2>Contacts</h2></center>
+			<input type="button" value="+" ng-model="addButton" ng-click="addElems()">
+			<table border="1">
+			<thead>
+				<tr>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th></th>
+				</tr>
+				<tbody >
+						<tr ng-repeat="key in list">	
+								<th>{{key.Fname}}</th>
+								<th>{{key.Lname}}</th>
+								<th><a href="#" ng-click="editElems(key)">Edit
+								</a></th>			
+						</tr>
+				</tbody>
+			</thead>
+		</table>	
+		</div>
+		<div ng-style="Edit">
+			<center><h2>Edit</h2>
+				<input type="text" placeholder="First Name" ng-model="fname1"><br/>
+				<input type="text" placeholder="Last Name" ng-model="lname1"><br/>
+				<input type="text" placeholder="Mobile No" ng-model="Mno1"><br/>
+				<input type="button" value="Done" ng-model="doneButton" ng-click="doneButon1()">
+				<input type="button" value="Cancel" ng-model="cancelButton" ng-click="cancelElem()">
+			</center>
+		</div>
+		<div ng-style="Add">
+			<center><h2>Add</h2>
+				<input type="text" placeholder="First Name" ng-model="fname"><br/>
+				<input type="text" placeholder="Last Name" ng-model="lname"><br/>
+				<input type="text" placeholder="Mobile No" ng-model="Mno"><br/>
+				<input type="button" value="Done" ng-model="doneButton"  ng-click="doneButon()">
+				<input type="button" value="Cancel" ng-model="cancelButton" ng-click="cancelElem()">
+			</center>
+		</div>
+	</body>
+</html>
