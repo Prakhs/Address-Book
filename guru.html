@@ -1,0 +1,22 @@
+<html ng-app="AddressBookApp">
+
+<head>
+    <title>Address Book</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script type="text/javascript" src="/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="controllers/HeaderCtrl.js"></script>
+    <script type="text/javascript" src="controllers/DisplayCtrl.js"></script>
+    <script type="text/javascript" src="controllers/AddCtrl.js"></script>
+    <script type="text/javascript" src="controllers/EditCtrl.js"></script>
+
+</head>
+
+<body>
+    <section ng-include="'views/headerView.html'"></section>
+    <section ng-include="'views/displayView.html'"></section>
+    <section ng-include="'views/editView.html'"></section>
+    <section ng-include="'views/addView.html'"></section>
+</body>
+
+</html>
