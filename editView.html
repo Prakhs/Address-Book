@@ -1,0 +1,22 @@
+<div ng-show="showEdit" ng-controller="EditCtrl">
+    <header class="headerClass">
+        <h3 class="headName">
+            <center>Edit</center>
+        </h3>
+    </header>
+    <div class="editClass">
+        <center>
+            <input type="text" placeholder="First Name" ng-model="user.firstname">
+            <br/>
+            <input type="text" placeholder="Last Name" ng-model="user.lastname">
+            <br/>
+            <input type="text" placeholder="Phone Number" ng-model="user.phone">
+            <br/>
+            <span class="edtBtn">
+                <button ng-click="updateClick()">Update</button>
+                <button ng-click="cancel()">Cancel</button>
+            </span>
+        </center>
+
+    </div>
+</div>
