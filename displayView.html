@@ -1,0 +1,13 @@
+<div ng-show="showDisplay" ng-controller="DisplayCtrl">
+	<div class="nameNode">
+		<center ng-repeat = "user in users">
+				<span>{{user.firstname}}</span> 
+				<span>{{user.lastname}}</span>
+				<span>{{user.phone}}</span>
+				<span><button ng-click="editClick(user)">Edit</button></span>
+				<span><button ng-click="deleteClick(user)">Delete</button></span>
+				<hr/>
+		</center>
+		
+	</div>
+</div>
